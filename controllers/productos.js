@@ -12,7 +12,7 @@ const getProductos = (req, res) => {
             });
         } else {
             return res.json({
-                users: rows.length ? rows : 'No users found',
+                users: rows.length ? rows : 'No producto found',
             });
         }
     });
@@ -37,6 +37,8 @@ const getProducto = (req, res) => {
 }
 
 const updateProducto = (req, res) => {
+    if(process.env.TIENE_PERMISO == "1"){
+
     let body = req.body;    
     let id = req.params.id;
     let query = `UPDATE producto SET nombre = '${body.name}', descripcion = '${body.descripcion}', 
@@ -54,9 +56,15 @@ const updateProducto = (req, res) => {
             });
         }
     });
+    }else{
+        return res.json({
+            message: 'No tienes permisos para ver esto',
+        });
+    }
 }
 
 const createProducto = (req, res) => {
+    if(process.env.TIENE_PERMISO == "1"){
     let body = req.body;
     let query = `INSERT INTO producto (nombre, descripcion,codigo,foto,precio,stock) 
                     VALUES ('${body.name}','${body.descripcion}','${body.codigo}','${body.foto}','${body.precio}','${body.stock}')`;
@@ -73,9 +81,16 @@ const createProducto = (req, res) => {
             });
         }
     });
+}else{
+    return res.json({
+        message: 'No tienes permisos para ver esto',
+    });
+}
 }
 
 const deleteProducto = (req, res) => {
+    if(process.env.TIENE_PERMISO == "1"){
+
     let id = req.params.id;
     let query = `DELETE FROM producto WHERE id = ${id}`;
     
@@ -91,6 +106,11 @@ const deleteProducto = (req, res) => {
             });
         }
     });
+    }else{
+        return res.json({
+            message: 'No tienes permisos para ver esto',
+        });
+    }
 }
 
 module.exports = {

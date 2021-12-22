@@ -8,9 +8,13 @@ class Server {
         this.host = process.env.HOST || 'localhost';
         this.usersPath = '/api/users';
         this.productsPath = '/api/producto';
+        this.carritoPath = '/api/carrito';
         this.middleware();
         this.routes();
     }
+
+         
+   
 
     middleware() {
         this.app.use(cors());
@@ -21,6 +25,7 @@ class Server {
     routes() {
         this.app.use(this.usersPath, require('../routes/user'));
         this.app.use(this.productsPath, require('../routes/productos'));
+        this.app.use(this.carritoPath, require('../routes/carrito'));
     }
     
     listen() {

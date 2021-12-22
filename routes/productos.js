@@ -2,14 +2,14 @@ const { Router } = require('express');
 const { getProductos, getProducto, createProducto, updateProducto, deleteProducto } = require('../controllers/productos');
 const router = Router();
 
-router.get('/api/', getProductos);
+router.get('/', getProductos);
 
-router.get('/api/:id', getProducto);
+router.get('/:id', getProducto);
 
-router.put('/api/:id', updateProducto);
+router.put('/:id', updateProducto);
 
-router.post('/api/', createProducto);
+router.post('/', createProducto);
 
-router.delete('/api/:id', deleteProducto);
+router.delete('/:id', deleteProducto);
 
 module.exports = router;
